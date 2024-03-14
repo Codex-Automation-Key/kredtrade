@@ -1,0 +1,57 @@
+{% extends "market/base.html" %}
+{% load tailwind_filters %}
+{% block title %}
+    <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">{{user.username}}</h1>
+{% endblock title %}
+{% block content %}
+
+{% load tailwind_filters %}
+<div style="width: auto;">
+      
+  <div class="p-8 rounded-lg shadow-md" style="background-color: rgb(121, 180, 232); color: black; height: fit-content;">
+    <nav class="flex items-center justify-between flex-wrap bg-teal-200 p-6">
+      <div class="flex items-center flex-shrink-0 text-black mr-6">
+        <a href="{% url 'profile-update' user.id %}" class="font-semibold text-xl tracking-tight" style="padding: 10px; margin: 10px;">Company</a>  
+        <a href="{% url 'certificate-update' user.id %}" class="font-semibold text-xl tracking-tight">Certificates</a>
+        <br>
+        <a href="{% url 'personnel-update' user.id %}" class="font-semibold text-xl tracking-tight" style="padding: 10px; margin: 10px;">Personnel </a>
+        <br>
+        <a href="{% url 'factory-update' user.id %}" class="font-semibold text-xl tracking-tight"> Factory </a>
+        <br>
+      </div>
+      
+      <div class="block lg:flex lg:items-center lg:w-auto" style="width: fit-content;">
+      </div>    
+    <form class="flex flex-col gap-4" method = "POST">
+      
+      <div style="width: 90%; height:10%; align-items: center; align-content: center; ">
+        <form class="grid grid-cols-2" method = "POST" action="." enctype="multipart/form-data">
+            {% csrf_token %}
+    
+                {{ form|crispy }}
+            
+            
+              <button
+                type="submit"
+                class="p-2 bg-green-600 rounded hover:bg-green-700 transition-colors text-gray-300"
+                style="height: auto; font-size: larger;">
+                Update Profile
+            </button>
+            
+            
+            <a href="{% url 'profile' user.id %}"
+              
+                type="submit"
+                class="p-2 bg-blue-600 rounded hover:bg-green-200 transition-colors text-gray-300"
+              >Back
+      
+            </a>
+        </form>
+    </div>
+  
+        
+</div>
+    
+    
+    
+{% endblock content %}

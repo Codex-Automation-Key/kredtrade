@@ -1,0 +1,64 @@
+{% extends "market/base.html" %}
+
+{% block title %}
+    <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">{{ industry.industry_name }} Details</h1>
+{% endblock title %}
+{% block content %}
+    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+        
+
+        <div class="grid grid-cols-3 gap-3">
+            
+            <div>
+                <a href="#">
+                    
+                    <div class="p-6 bh-white rounded-b-xl">
+                        <h2 class="text-2xl">{{ industry.industry_name }}</h2>
+                        <p class="text-l"> {{industry.industry_desc}} </p>
+                    </div>
+                </a>
+            </div>
+            
+                    <h1>Industry Details</h1>
+            <div>
+                <h2>{{ industry.industry_name }}</h2>
+                <p><strong>Description:</strong> {{ industry.industry_desc }}</p>
+                <p><strong>HSN 2-Digit Code:</strong> {{ industry.hsn_2_digit }}</p>
+            </div>
+            {% for category in categories %}
+           
+                  <article class="media content-section" style="border-width: 2px; border-color: #444444; margin-bottom: 10px; background-color: #c4f0e5;" >
+                      <div class="media-body" >
+                          <div class="article-metadata" style=" padding-bottom: 1px; margin-bottom: 4px; border-bottom: 1px solid #e3e3e3" >
+                              <a class="mr-2" style="padding-left: 30px; font-size: 16px; color: #031850;" href="{% url 'industry-detail' industry.id %}">{{ category.category_name }}</a>
+                              <small class="text-muted" style="padding-left: 20px;">{{ category.category_desc }}</small>
+                          </div>
+                          <p class="article-content" style="padding-left: 20px; white-space: pre-line;">HSN Code: {{ category.hsn_6_digit }} </p>
+                          <p class="article-content" style="padding-left: 20px; white-space: pre-line;">Number of Categories: {{industry.categories.count}}</p>
+          
+                          <br>
+                      </div>
+                  </article>
+            {% empty %}
+            <p>No categories found for this industry.</p>
+            {% endfor %}
+    
+            
+            
+
+        </div>
+
+            <h2 class="mb-12 text-2xl text-center">
+                {{industry.industry_name}} has {{industry.categories.count}} listed.
+                
+                    
+                        
+                        
+                        
+                    
+
+            </h2>
+        
+        </div>
+        
+{% endblock content %}

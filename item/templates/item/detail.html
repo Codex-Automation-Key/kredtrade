@@ -1,0 +1,149 @@
+{% extends "market/base.html" %}
+
+{% block title %}
+    <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">{{item.item_name}} Details</h1>
+{% endblock title %}
+{% block content %}
+    <div class="grid grid-cols-5 gap-6">
+        <div class="col-span-2 centered-img-container">
+            <img src="{{item.image.url}}" alt="item-image" 
+            
+            class=" rounded-lg mx-auto height-400" 
+            style="max-height: 600px; width: auto;">
+        </div>
+
+        <div class="col-span-3 p-6 bg-gray-100 rounded-xl">
+            <h1 class="mb-6 text-3xl">
+                {{item.item_name}}
+            </h1>
+            {% if item.item_industry %}
+            <a href="{% url 'industry-detail' item.item_industry.id %}">
+                <p class="text-gray-500" >Industry:- {{item.item_industry}}  </p>
+            </a>
+            
+            {% else %}
+            <p></p>
+            {% endif %}
+
+            {% if item.item_category %}
+            <a href="{% url 'category-detail' item.item_category.id %}">
+                <p class="text-gray-500" >Category:- {{item.item_category.category_name}}  </p>
+                <p class="text-gray-500" >Product HSN :- {{item.item_category.hsn_6_digit}}  </p>
+                <br>
+            </a>
+            {% else %}
+            <br>
+            {% endif %}
+
+            
+            <p class="text-gray-700">Product Description:- {{ item.item_description }}</p>
+                            {% if item.quantity %}
+                            <p class="text-l">Minimum Order Quantity: {{item.quantity}} {{item.preferred_unit}}</p>
+                            {% endif %}
+                            <p class="text-l">Product Description: {{item.quality_description}} </p>
+                            
+                            {% if item.price_per_unit %}
+                            
+                            <p class="text-l">Rate: Rs {{item.price_per_unit}} per {{item.preferred_unit}} </p>
+                            {% endif%}
+
+                            {% if item.available == True %}
+                            <p class="text-l"> {{item.item_name}} available at above rates for limited period of time. </p><br>
+                            {% else %}
+                            <p class="text-l"> {{item.item_name}} currently not available, you can list yourself to be notified. 
+                                </p>
+                                <br>
+                            
+                            {% endif %}
+                            
+                            
+                            
+                                                       
+            <a href="{% url 'user-store' item.created_by.username %}">
+                <p class="text-gray-500">Manufacturer:- <strong>{{ item.created_by }}</strong></p>
+            </a>
+            <div style="margin: 10px;" >
+                {% if item.created_by == user %}
+                    <button class="px-5 py-2 bg-teal-600 text-white rounded hover:bg-gray-600 transition-colors">
+                        <a href="{% url 'edit-item' item.id %}">
+                            Edit Item
+                        </a>
+                    </button>
+                    <button class="px-5 py-2 bg-red-600 text-white rounded hover:bg-red-600 transition-colors">
+                        <a href="{% url 'delete-item' item.id %}">
+                            Delete Item
+                        </a>
+                    </button>
+        
+                {% else %}
+                <div class="flex space-x-4"  style="margin: 5px; padding: 5px;" >
+                    <button 
+                        class="m-6 px-5 py-2 bg-teal-400 text-black-400 rounded hover:bg-blue-600 transition-colors">
+                        <a href="#">
+                            Contact Supplier
+                        </a>
+                    </button>
+                    <br>
+                    <button 
+                        style="margin: 25px; padding: 10px;"
+                        class="m-6 px-5 py-2 bg-blue-300 text-black-400 rounded hover:bg-blue-600 transition-colors">
+                            <a href="#">
+                                Show Interest
+                            </a>
+                    </button>
+                </div>
+                    
+                {% endif %}
+        
+            </div>
+
+        </div>
+        <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl col-span-5" style="width: auto;">
+            <h2 class="mb-12 text-2xl text-center">
+                Related Items
+            </h2>
+            
+            <div class="grid grid-cols-3 gap-3">
+                {% for item in related_items %}
+                <div class="product-card rounded overflow-hidden mx-auto" style="padding: 10px; margin:10px">
+                    <a href="{% url 'item-detail' item.id %}">
+                        <div class="centered-img-container"> <!-- Custom class for centering -->
+                            <img src="{{ item.image.url }}" alt="item-image" 
+                            class="w-40 h-40 rounded-lg" 
+                            style="border-color: rgb(41, 26, 7); border-width: 2px;">
+                        </div>
+                        <div class="p-6 bg-white rounded-b-xl text-center"> <!-- Inline style for centering text -->
+                            <h2 class="text-2xl">{{ item.item_name }}</h2>
+                            <p class="text-l"> {{item.created_by}} </p>
+                        </div>
+                    </a>
+                    
+                </div>
+                {% endfor %}
+
+            </div>
+            <h2 class="mb-12 text-2xl text-center">
+                Similar Items
+            </h2>
+            
+            <div class="grid grid-cols-3 gap-3">
+                {% for item in similar_items %}
+                <div class="product-card rounded overflow-hidden mx-auto" style="padding: 10px; margin:10px">
+                    <a href="{% url 'item-detail' item.id %}">
+                        <div class="centered-img-container"> <!-- Custom class for centering -->
+                            <img src="{{ item.image.url }}" alt="item-image" 
+                            class="w-40 h-40 rounded-lg" 
+                            style="border-color: rgb(41, 26, 7); border-width: 2px;">
+                        </div>
+                        <div class="p-6 bg-white rounded-b-xl text-center"> <!-- Inline style for centering text -->
+                            <h2 class="text-2xl">{{ item.item_name }}</h2>
+                            <p class="text-l"> {{item.created_by}} </p>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+
+{% endblock content %}

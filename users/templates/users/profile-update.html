@@ -1,0 +1,34 @@
+{% extends "market/base.html" %}
+{% load tailwind_filters %}
+{% load crispy_forms_tags %}  <!-- Ensure you load crispy_forms_tags for using crispy with forms -->
+
+{% block title %}
+    <title>{{ user.username }}'s Profile</title>
+{% endblock title %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto p-8 bg-blue-100 rounded-lg shadow-md">
+    <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">{{ user.username }}'s Profile</h1>
+    <nav class="flex flex-wrap items-center justify-center text-black mb-4">
+        <a href="{% url 'profile-update' user.id %}" class="btn mx-2 my-1 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Company</a>  
+        <a href="{% url 'certificate-update' user.id %}" class="btn mx-2 my-1 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Update KYC</a>
+        <a href="{% url 'personnel-update' user.id %}" class="btn mx-2 my-1 px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Personnel</a>
+        <a href="{% url 'factory-update' user.id %}" class="btn mx-2 my-1 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Factory</a>
+        <a href="{% url 'add-certificate'  %}" class="btn mx-2 my-1 px-4 py-2 bg-cyan-500 text-white rounded hover:bg-cyan-600">Add Certificates</a>
+    </nav>
+    <form method="POST" enctype="multipart/form-data" class="space-y-4">
+        {% csrf_token %}
+        {{ u_form|crispy }}
+        {{ p_form|crispy }}
+        
+        <div class="flex justify-between items-center">
+            <button type="submit" class="px-4 py-2 bg-green-600 text-white font-bold rounded hover:bg-green-700 transition-colors">
+                Update Profile
+            </button>
+            <a href="{% url 'profile' user.id %}" class="px-4 py-2 bg-blue-600 text-white font-bold rounded hover:bg-blue-700 transition-colors">
+                Back
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock content %}

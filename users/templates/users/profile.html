@@ -1,0 +1,264 @@
+{% extends "market/base.html" %}
+{% load tailwind_filters %}
+
+{% block title %}
+    <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">{{ user.username }}'s Public Profile</h1>
+{% endblock title %}
+
+{% block content %}
+
+  
+  <!-- Banner Image -->
+  
+  <header class="bg-gray-800 text-white py-5">
+    <div class="container mx-auto flex justify-between items-center px-4">
+      <div class="flex items-center space-x-4">
+        <img class="h-24 w-24 rounded-full border-4 border-gray-200" 
+        src="{{user.profile.image.url}}" alt="logo" class="rounded-full">
+        <div>
+          <h1 class="text-xl font-semibold">{{ user.profile.company }}</h1>
+          <p class="text-sm">{{ user.profile.state }}</p>
+          <p class="text-sm">Established: {{ user.profile.est }}</p>
+          
+        </div>
+        <div>
+            
+            <p class="text-sm"
+            style="border-radius: 20px; border-width: 1px; 
+            background-color: rgb(211, 251, 9); width:fit-content;
+            padding: 10px; margin: 5px;color: #000;">Trustworthy</p>
+            
+        </div>
+        <div>
+            
+            <p class="text-sm"
+            style="border-radius: 20px; border-width: 1px; 
+            background-color: rgb(7, 252, 117); width:fit-content;
+            padding: 10px; margin: 5px;color: #000;">Premium</p>
+            
+        </div>
+        <div>
+            
+            <p class="text-sm"
+            style="border-radius: 20px; border-width: 1px; 
+            background-color: rgb(2, 179, 255); width:fit-content;
+            padding: 10px; margin: 5px;">KYC Verified</p>
+            
+        </div>
+        <br>
+        <div>
+            <a href="{% url 'profile-update' user.id %}">
+                <p class="text-sm"
+            style="border-radius: 20px; border-width: 1px; 
+            background-color: rgb(234, 254, 234); width:fit-content;
+            padding: 10px; margin: 5px; color: #000;">Update Profile</p>
+
+            </a>
+            
+            
+        </div>
+      </div>
+      
+    </div>
+  </header>
+  <!-- Main Content -->
+  <main class="container mx-auto p-4">
+    <!-- About the Company -->
+    <section class="bg-white shadow-md rounded-lg p-6 my-6">
+    
+
+        {% if profile.company and profile.company != 'company' %}
+            {% if profile.description and profile.description != 'Business Description' %}
+                {% if profile.status and profile.status != 'Lited' %}
+                    {% if user.profile.employee %}
+                        {% if profile.nature and profile.nature != 'trde' %}
+                            {% if profile.turnover and profile.turnover != '00' %}
+        <p><strong>{{ profile.company }}</strong> </p>
+        
+        <br>
+        
+        <p><strong>About the company:</strong>
+            <br> 
+            {{ profile.description }} We are a {{ profile.status }} business, 
+            employing over {{ profile.employee }} the nature of our business can be summarized to be {{ profile.nature }}
+            with annual turnover of {{ profile.turnover }}.
+        </p>
+        
+        
+        
+        {% endif %}
+        {% endif %}
+        {% endif %}
+        {% endif %}
+        {% endif %}
+        {% endif %}
+    
+        <br>
+        
+        {% if profile.factorydesc and profile.factorydesc != 'N/A' %}
+        {% if profile.factorytype and profile.factorytype != 'N/A' %}
+        {% if profile.factorylabors %}
+            
+            
+            
+            
+
+
+        <!-- Factory Section -->
+        
+            
+            
+            <p>
+                Factory Description: {{ profile.factorydesc }}
+                Factory Type:{{ profile.factorytype }}
+                Number of Labors: {{ profile.factorylabors }}</p>
+            
+            
+          
+            {% endif %}
+                        
+            {% endif %}
+            {% endif %}
+    
+    <div>
+    <p>
+        Main Products: 
+    </p>
+    <div>
+        {% for item in items %}
+        <strong>{{item.item_name}} |</strong>
+        
+        {% endfor %}
+    </div>
+
+    </div>
+
+    </section>
+
+    <!-- Listed Products -->
+    
+    <section>
+    <h3 class="text-xl font-semibold my-4 justify-content-center; align-items-center text-align-center">Additional Certificates</h3>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {% for certificate in reg_certificates %}
+        <div class="bg-white shadow-md rounded-lg p-4">
+        {% if certificate %}
+            
+        <h4 class="text-lg font-semibold mb-1">{{certificate.certificate_name}}</h4>
+        <p class="text-sm mb-2">{{certificate.issued_by}}</p>
+        {% else %}
+
+        <p>
+            Upload Certificates like RCMC's, Certifications and Accolades to increase your Trustworthiness. 
+        </p>
+        {% endif %}
+        </div> 
+
+        {% endfor %}  
+    </div>
+    <button>
+        <a href="#">
+            Show All Certificates
+        </a>
+    </button>
+    
+    </section>
+    
+    <section>
+        <h3 class="text-xl font-semibold my-4 justify-content-center; align-items-center text-align-center">Listed Products</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Product 1 -->
+        {% for item in items %}
+        <div class="bg-white shadow-md rounded-lg p-4">
+            <img src="{{item.image.url}}" alt="product image" class="w-full h-56 object-cover mb-2">
+            <h4 class="text-lg font-semibold mb-1">Product Name {{item.item_name}}</h4>
+            <p class="text-sm mb-2">{{item.item_category.hsn_6_digit}}</p>
+        </div>
+        
+        {% endfor %}
+    
+            <button>
+                <a href="{% url 'user-store' profile.user.username %}">
+                    Visit Store
+                </a>
+            </button>
+        
+        </div>
+    </section>
+    <section>
+        <h3 class="text-xl font-semibold my-4 justify-content-center; align-items-center text-align-center">Listed Leads</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Product 1 -->
+        {% for post in posts %}
+        <div class="bg-white shadow-md rounded-lg p-4">
+            <img src="{{post.image.url}}" alt="product image" class="w-full h-56 object-cover mb-2">
+            <h4 class="text-lg font-semibold mb-1">Product Name {{post.title}}</h4>
+            <p class="text-sm mb-2">{{post.intent}}</p>
+        </div>
+        {% endfor %}
+    
+            <button>
+                <a href="{% url 'user-posts' profile.user.username %}">
+                    Show all the posts
+                </a>
+            </button>
+        </div>
+    </section>
+    
+</main>
+  <script>
+    const certificates = [
+        {
+            name: "Certificate Name",
+            file: "path_to_certificate.pdf",
+            issuedBy: "Issued By"
+        },
+        // Add more certificates as needed
+    ];
+
+    function loadPDF(pdfPath, containerId) {
+        var loadingTask = pdfjsLib.getDocument(pdfPath);
+        loadingTask.promise.then(function(pdf) {
+            console.log('PDF loaded');
+            
+            pdf.getPage(1).then(function(page) {
+                var viewport = page.getViewport({scale: 1});
+                var canvas = document.createElement("canvas");
+                var context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                var renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+                page.render(renderContext).promise.then(function () {
+                    console.log('Page rendered');
+                    document.getElementById(containerId).appendChild(canvas);
+                });
+            });
+        }, function (reason) {
+            console.error(reason);
+        });
+    }
+
+    certificates.forEach((certificate, index) => {
+        const div = document.createElement("div");
+        div.classList.add("certificate");
+        div.innerHTML = `
+            <h4 class="text-lg font-semibold mb-1">${certificate.name}</h4>
+            <p class="text-sm mb-2">Issued By: ${certificate.issuedBy}</p>
+        `;
+        const containerId = `certificate-${index}`;
+        div.id = containerId;
+        document.getElementById("certificate-container").appendChild(div);
+        loadPDF(certificate.file, containerId);
+    });
+</script>
+
+
+
+
+
+{% endblock content %}

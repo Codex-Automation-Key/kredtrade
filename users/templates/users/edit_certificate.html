@@ -1,0 +1,13 @@
+{% extends 'market/base.html' %}  <!-- Extend your base template -->
+{% block content %}
+<h2>Edit Certificate</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save changes</button>
+    
+    <div><a href="{% url 'delete-certificate' certificate.id %}">
+        Delete
+    </a></div>
+</form>
+{% endblock %}

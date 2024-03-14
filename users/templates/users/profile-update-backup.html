@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: #aadfe1;
+      color: white;
+      font-family: 'Roboto';
+      
+    }
+  </style>
+  {% load tailwind_filters %}
+</head>
+<body class="flex justify-center h-screen">
+
+  
+
+  <div class="p-8 rounded-lg shadow-md" style="background-color: rgb(121, 180, 232); color: black; height: fit-content;">
+
+    <h1 class="text-4xl font-bold text-center mb-2">KREDTRADE.COM</h1>
+    <p class="text-lg text-center mb-8">Trade, Acceleration & Growth Simplified</p>
+    <form class="flex flex-col gap-4" method = "POST">
+      <div style="width: 80%; height:20%; align-items: center; align-content: center; ">
+        <form class="grid grid-cols-2" method = "POST">
+            {% csrf_token %}
+    
+                {{ u_form|crispy }}
+                {{ p_form|crispy }}
+            
+            
+              <button
+                type="submit"
+                class="p-2 bg-green-600 rounded hover:bg-green-700 transition-colors text-gray-300"
+                style="height: auto; font-size: larger;">
+                Update Profile
+            </button>
+            
+            
+            <a href="{% url 'profile' user.id %}"
+              
+                type="submit"
+                class="p-2 bg-blue-600 rounded hover:bg-green-200 transition-colors text-gray-300"
+              >Back
+      
+            </a>
+        </form>
+    </div>
+      
+      
+      
+    
+  </div>
+</body>
+</html>

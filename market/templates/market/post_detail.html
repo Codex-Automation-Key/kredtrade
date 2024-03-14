@@ -1,0 +1,103 @@
+{% extends "market/base.html" %}
+
+{% block title %}
+    <h1 class="text-4xl font-bold text-center text-gray-800 mb-8" 
+    style=" font-family: 'Times New Roman', Times, serif ; color: #031850;">
+    
+        FEED
+    </h1>
+    
+{% endblock title %}
+{% block content %}
+
+    
+    
+    <article class="media content-section" 
+    style="border-width: 2px; border-color: #000000; 
+    margin-top: 10px; width: auto;">
+        <!-- Top Bar -->
+        <div class="flex items-center justify-between py-2 px-4 border-b border-gray-700">
+            <div class="flex items-center">
+            <div class="rounded-full overflow-hidden w-10 h-10 bg-gray-700 mr-3">
+                <img src="{{object.author.profile.image.url}}" alt="User Profile" class="object-cover w-full h-full">
+            </div>
+            <a class="font-semibold" href="{% url 'user-posts' object.author.username %}">
+                {{object.author.username}}
+            </a>
+            </div>
+            <div class="text-gray-400 text-sm">
+                <a href="#">
+                    Intent:  {{object.intent}} ||
+                </a>
+            <span>Country: {{object.source_country}} ||</span>
+            <span>Target Country: {{object.target_country}} ||</span>
+            <span class="mx-1">·</span>
+            <span>{{object.date_posted}}</span>
+            </div>
+        </div>
+
+        <!-- Article Header -->
+        <div class="mt-4">
+            <h1 class="text-3xl font-bold tracking-tight" style="text-align: center;">{{object.title}}</h1>
+            <p class="mt-4 text-gray-800 leading-relaxed" style="margin: 15px;">{{object.content}}</p>
+        </div>
+
+        <!-- Article Footer -->
+        <div class="flex flex-wrap items-center justify-between mt-6 border-t border-gray-700 pt-4">
+            <div class="text-sm text-gray-600" style="margin: 20px;">
+                <div>
+                    <a href="#">
+                        Industry:  {{object.post_industry}}
+                    </a>                         
+                </div>
+                <div>
+                    <a href="#">
+                        Category:  {{object.post_category_hsn.category_name}}
+                    </a>  
+                      
+                    
+                    <div class="flex justify-center mb-6">
+                        <img class="h-full w-full rounded-8 border-4 border-gray-200" src="{{post.image.url}}" alt="Company Logo">
+                    </div>
+                </div>
+            </div>
+            
+            
+
+        </div>
+        
+       
+    </article>
+    <div style="margin: 10px;" >
+        {% if object.author == user %}
+            <button class="px-5 py-2 bg-teal-600 text-white rounded hover:bg-gray-600 transition-colors">
+                <a href="{% url 'post-update' object.id %}">
+                    Edit Post
+                </a>
+            </button>
+            <button class="px-5 py-2 bg-red-600 text-white rounded hover:bg-red-600 transition-colors">
+                <a href="{% url 'post-delete' object.id %}">
+                    Delete Post
+                </a>
+            </button>
+
+        {% else %}
+        <div class="flex space-x-4" style="margin: 20px; padding: auto;" >
+            <button class="px-5 py-2 bg-gray-100 text-black-400 rounded hover:bg-blue-600 transition-colors">
+                <a href="{% url 'contact_supplier' post.id %}">
+                    Contact Supplier
+                </a>
+            </button>
+            <button class="px-5 py-2 bg-teal-600 text-white rounded hover:bg-gray-600 transition-colors">
+                <a href="{% url 'show_interest' post.id %}">
+                    Show Interest
+                </a>
+            </button>
+        </div>
+            
+        {% endif %}
+
+    </div>
+    <br>
+
+{% endblock content %}

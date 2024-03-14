@@ -1,0 +1,92 @@
+{% extends "market/base.html" %}
+
+{% block title %}
+    <h1 class="text-4xl font-bold text-center text-gray-800 mb-8" 
+    style=" font-family: Roboto ; color: #031850;">
+    
+        Posts by {{view.kwargs.username}} 
+    </h1>
+    
+{% endblock title %}
+{% block content %}
+    {% for post in posts %}
+
+    
+    
+        <article class="media content-section" 
+        style="border-width: 2px; border-color: #000000; 
+        margin-top: 10px; width: auto;">
+            <!-- Top Bar -->
+            <div class="flex items-center justify-between py-2 px-4 border-b border-gray-700">
+                <div class="flex items-center">
+                <div class="rounded-full overflow-hidden w-10 h-10 bg-gray-700 mr-3">
+                    <img src="{{post.author.profile.image.url}}" alt="User Profile" class="object-cover w-full h-full">
+                </div>
+                <a href="{% url 'user-store' post.author.username %}">
+                    <span class="font-semibold">{{post.author.username}}</span>
+                </a>
+                </div>
+                <div class="text-gray-400 text-sm">
+                <span>{{post.date_posted}}</span>
+                </div>
+            </div>
+
+            <!-- Article Header -->
+            <div class="mt-4">
+                <h1 class="text-3xl font-bold tracking-tight" style="text-align: center;">
+                    <a href="{% url 'post-detail' post.id %}">
+                        {{post.title}}
+                    </a>
+                </h1>
+                <p class="mt-4 text-gray-800 leading-relaxed" style="margin: 15px;">{{post.content}}</p>
+            </div>
+            <div class="centered-img-container" >
+                <img class="w-100px" src="{{post.image.url}}" alt="Post Image" >
+
+            </div>
+
+            <!-- Article Footer -->
+            <div class="flex flex-wrap items-center justify-between mt-6 border-t border-gray-700 pt-4">
+                <div class="text-sm text-gray-600" style="margin: 20px;">
+                    <div>
+                        <a href="#">
+                            Intent:  {{post.intent}}
+                        </a>                         
+                    </div>
+                    <div>
+                        <a href="#">
+                            Industry:  {{post.post_industry}}
+                        </a>                         
+                    </div>
+                    <div>
+                        <a href="#">
+                            Category:  {{post.post_category}}
+                        </a>  
+                    <div>
+
+                    </div>
+                        <span>Country: {{post.source_country}} |</span>
+                        <span>Target Country: {{post.target_country}} |</span>
+                    </div>
+                </div>
+                <div class="flex space-x-4" style="margin: 20px; padding: auto;" >
+                    <button class="px-5 py-2 bg-gray-100 text-black-400 rounded hover:bg-blue-600 transition-colors">
+                        <a href="#">
+                            Contact Supplier
+                        </a>
+                    </button>
+                    <button class="px-5 py-2 bg-teal-600 text-white rounded hover:bg-gray-600 transition-colors">
+                        <a href="#">
+                            Show Interest
+                        </a>
+                    </button>
+                </div>
+            </div>
+            
+
+        </article>
+
+    {% endfor %}
+    <br>
+
+{% endblock content %}

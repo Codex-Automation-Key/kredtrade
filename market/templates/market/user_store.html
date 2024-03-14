@@ -1,0 +1,68 @@
+{% extends "market/base.html" %}
+{% load tailwind_filters %}
+{% block title %}
+        
+    
+    
+    
+{% endblock title %}
+{% block content %}
+<a href="{% url 'user-company' view.kwargs.username %}">
+    <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">{{view.kwargs.username}}'s Store</h1>
+</a>
+
+<div class="flex" >
+    
+
+    
+        
+        <!-- Main Content Scrollable -->
+        <div class="container mx-auto my-10">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                {% for item in items %}
+                <div class="product-card rounded overflow-hidden mx-auto" style="padding: 10px; margin:10px">
+                    <a href="{% url 'item-detail' item.id %}">
+                        <img class="w-100px" src="{{item.image.url}}" alt="listed-item">
+                        <div class="px-6 py-4">
+                            <div class="font-bold text-xl mb-2">{{item.item_name}}</div>
+                            
+                        </div>
+                        <div class="px-6 pt-4 pb-2">
+                            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Product Price Per Unit:- {{item.price_per_unit}}</span>
+                            <span class="inline-block bg-blue-200 rounded-full px-3 py-1 text-sm font-semibold text-purple-800 mr-2 mb-2">Product Available on short notice :: {{item.available}}</span>
+                            
+                        </div>
+                    </a>
+                    
+                
+                </div>
+                
+                {% empty %}
+                <p>
+                    The {{view.kwargs.username}} hasn't listed any products yet. 
+                </p>
+                {% endfor %}
+
+            
+        </div>
+        
+        
+<div  style="align-items: center; text-align: center;">
+    <button style="padding: 5px; margin: 5px;  height: auto; width: auto; border-width: 2px; background-color: aqua; border-radius: 5px;">
+        <a href="{% url 'market-home' %}">
+            Go Back
+        </a>
+    </button>
+    <button style="padding: 5px; margin: 5px;  height: auto; width: auto; border-width: 2px; background-color: aqua; border-radius: 5px;">
+        <a href="{% url 'user-company' view.kwargs.username %}">
+            Show Company Profile
+        </a>
+    </button>
+    
+</div>
+        
+    </div>
+    
+    
+    
+{% endblock content %}

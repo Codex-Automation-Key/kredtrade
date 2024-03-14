@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KredTrade</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+    <style>
+        /* Base layout adjustments for improved responsiveness and aesthetics */
+        body {
+            font-family: 'Inter', sans-serif; /* Improved typography */
+            background: linear-gradient(to right, #ff6505be, #7bfa8e); /* Gradient background for visual appeal */
+        }
+        .header-fixed {
+            position: sticky;
+            top: 0;
+            z-index: 1000; /* Ensures nav is always on top */
+            background-color: #fff; /* Contrast with the content */
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+        }
+        .menu-highlight {
+            background-color: #ffeb3b; /* Highlight color for active menu item */
+        }
+        .sidebar {
+            /* Responsive adjustments */
+            transition: margin-left .5s; /* Smooth transition for sidebar toggle */
+            @media (max-width: 768px) {
+                margin-left: -100%; /* Hide sidebar on small screens */
+            }
+        }
+        .sidebar-toggle {
+            display: none;
+            @media (max-width: 768px) {
+                display: block; /* Show toggle button on small screens */
+            }
+        }
+        .content {
+            padding: 20px;
+            transition: margin-left .5s; /* Smooth content shift when sidebar toggles */
+        }
+        .button-hover-effect:hover {
+            background-color: #159957; /* Subtle hover effect for buttons */
+            transition: background-color .3s; /* Smooth transition for hover effect */
+        }
+        .profile-header {
+            background-color: #2d3748;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .profile-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .certificate-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .certificate {
+            background-color: white;
+            padding: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+        }
+        canvas {
+            width: 100%;
+            height: auto;
+        }
+        .product-card {
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            width: 240px;
+        }
+        
+        .product-card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+        .centered-img-container {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 leading-normal tracking-normal">
+
+    <!-- Responsive Nav Bar -->
+    <nav class="flex items-center justify-between flex-wrap bg-white p-6 header-fixed">
+        <div class="flex items-center flex-shrink-0 text-teal-500 mr-6">
+            <div class="flex items-center flex-shrink-0 text-teal-500 mr-6">
+                
+                <a href="{% url 'market-industries' %}" class="font-semibold text-xl tracking-tight">KredTrade.com</a>
+                
+            </div>
+        </div>
+        <div class="block lg:hidden">
+            <button onclick="toggleNavbar()" class="sidebar-toggle text-teal-200 focus:outline-none focus:shadow-outline">
+                <svg class="fill-current h-6 w-6" viewBox="0 0 24 24"><path d="M3,18H21a1,1,0,0,1,0,2H3a1,1,0,0,1,0-2Zm0-7H21a1,1,0,0,1,0,2H3a1,1,0,0,1,0-2Zm0-7H21a1,1,0,0,1,0,2H3A1,1,0,0,1,3,4Z"></path></svg>
+            </button>
+        </div>
+        <!-- Links will be dynamically highlighted based on the current page -->
+        <div id="navbar" class="hidden w-full block flex-grow lg:flex lg:items-center lg:w-auto lg:justify-end" style="align-items:center; margin-left:20% ;">
+            <div class="text-lg lg:flex-grow" >
+                <a href="{% url 'market-home' %}" class="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-black mr-4">
+                    Explore
+                </a>
+
+                <a href="{% url 'post-create' %}" class="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-black mr-4">
+                    New Post
+                </a>
+                
+                <a href="{% url 'market-industries' %}" class="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-black mr-4">
+                    Industries
+                </a>
+                
+                <a href="{% url 'new-item' %}" class="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-black mr-4">
+                    New Item
+                </a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'market-index' %}" class="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-black mr-4">
+                    Index
+                </a>
+                
+                <a href="{% url 'profile' user.id %}" 
+                class="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-black mr-4"
+                style="margin: 10px; padding-top: 15px;">
+                    Profile
+                </a>
+                
+                <a href="{% url 'logout' %}" class="inline-block text-sm px-4 py-2 leading-none border rounded text-blue-900 bg-yellow-100 border-black hover:border-transparent hover:text-blue-900 hover:bg-teal-100 border-black-100 mt-4 lg:mt-0" style="font-size: large;">Logout</a>
+                
+                    <div class="flex justify-left mb-6" style="margin: 5px; padding-left: 10px;">
+                        
+                    </div>
+
+
+                    
+                {% else %}
+                    
+                    <a href="{% url 'login' %}" class="inline-block text-sm px-4 py-2 leading-none border rounded text-blue-900 bg-yellow-100 border-black hover:border-transparent hover:text-blue-900 hover:bg-teal-100 mt-4 lg:mt-0" style="font-size: large;">Login</a>
+                    <a href="{% url 'register' %}" class="inline-block text-sm px-4 py-2 leading-none border rounded text-blue-900 bg-yellow-100 border-black hover:border-transparent hover:text-blue-900 hover:bg-teal-100 mt-4 lg:mt-0" style="font-size: large;">Register</a>
+
+                {% endif %}
+            </div>
+            
+        
+        </div>
+    </nav>
+    
+
+    <!-- Main layout with responsive sidebar -->
+    <div class="layout">
+        <div class="content flex flex-col-2" style="align-items:center; margin-left:7% ;">
+            <main class="my-8 " style="width: 90%; border-radius: 10px; border-width: 2px; 
+                                        border-color: rgb(151, 142, 142); padding:10px; margin:10px;
+                                        background-color: rgb(255, 255, 255); text-emphasis-color: white;
+                                        align-self: center;">
+                <div style="border-radius: 10px;  ">
+                    {%block content%}
+                    {% endblock content %}
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex flex-wrap justify-between">
+                <div class="w-full md:w-1/3 text-white">
+                    <h3 class="font-bold">KredTrade.com</h3>
+                    <p class="text-gray-400">It's a groundbreaking idea that is revolutionizing the way businesses engage in international trade. Our aim is to connect global buyers and sellers, streamlining international trade, fostering seamless transactions, and cutting down on the costs involved international trade.</p>
+                </div>
+                <div class="w-full md:w-1/3 text-white mt-4 md:mt-0">
+                    <h3 class="font-bold">Menu</h3>
+                    <ul class="list-none mt-4">
+                        <li><a href="#" class="text-teal-500 hover:text-teal-300">About</a></li>
+                        <li><a href="#" class="text-teal-500 hover:text-teal-300">Contact</a></li>
+                        <li><a href="#" class="text-teal-500 hover:text-teal-300">Privacy Policy</a></li>
+                        <li><a href="#" class="text-teal-500 hover:text-teal-300">Terms Of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Optional JavaScript for responsive sidebar toggle -->
+    {% block javascript %}
+    {% endblock %}
+    
+</body>
+</html>

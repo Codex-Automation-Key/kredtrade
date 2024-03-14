@@ -1,0 +1,153 @@
+{% extends "market/base.html" %}
+
+{% block title %}
+    <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">Industries We Deal In</h1>
+{% endblock title %}
+{% block content %}
+    <div class="rounded overflow-hidden shadow-lg" style="padding-bottom: 40px ;">
+        <style>
+            /* Add your CSS styles here */
+            body {
+              font-family: Arial, sans-serif;
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+            }
+            .navigation {
+              background-color: #dddddd;
+              overflow: hidden;
+              text-align: right;
+            }
+            .navigation a {
+              padding: 10px 15px;
+              display: inline-block;
+              text-decoration: none;
+              color: black;
+              background-color: white; 
+              border: 2px solid green;
+              border-radius: 25px;
+            }
+            .navigation a:hover {
+              background-color: #ccc;
+            }
+            .title-bar {
+              background-color: #f2f2f2;
+              padding: 10px;
+              text-align: center;
+              font-weight: bold;
+            }
+            .industry-container {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr); /* Creates a 3 column grid */
+              gap: 10px; /* Space between items */
+              padding: 20px;
+            }
+            .industry {
+              text-align: center;
+              border: 1px solid #ddd;
+              border-radius: 4px;
+              padding: 5px;
+              background-color: white;
+            }
+            .wrapper {
+              max-width: 1200px; /* Or whatever maximum width you prefer */
+              margin: 0 auto; /* This will center your content */
+              padding: 0 20px; /* Add some padding on the sides */
+            }
+            .industry img {
+              max-width: 100%; /* This ensures the image is never wider than its container */
+              height: auto; /* This keeps the image aspect ratio intact */
+              display: block; /* This removes extra space under the image */
+              margin: 0 auto; /* This centers the image in its container if it is not as wide as the container */
+            }
+            .footer {
+              background-color: #f2f2f2;
+              padding: 10px;
+              text-align: center;
+            }
+            .footer-menu {
+              list-style-type: none;
+              margin: 0;
+              padding: 0;
+            }
+            .footer-menu li {
+              display: inline;
+              margin-right: 20px;
+            }
+            .footer-menu a {
+              text-decoration: none;
+              color: black;
+            }
+          
+            .blog-container {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr); /* Creates a 3 column grid */
+              gap: 10px; /* Space between items */
+              padding: 20px;
+            }
+            .blog-entry {
+              background-color: #f2f2f2;
+              margin: 10px;
+              padding: 10px;
+              text-align: left;
+            }
+          </style>
+          
+          <body>
+          <div class="wrapper">
+          
+          
+                <div class="industry-container">
+                <!-- Repeat this block for each industry category -->
+                <!-- Each .industry block represents one item in the grid -->
+                {% for med in meds %}
+    
+                  <article class="media content-section" style="border-width: 2px; border-color: #444444; margin-bottom: 10px;" >
+                      <div class="media-body">
+                          <div class="article-metadata" style="padding-bottom: 1px; margin-bottom: 4px; border-bottom: 1px solid #e3e3e3" >
+                              <a class="mr-2" style="padding-left: 30px;" href="#">Category: {{med.category_name}}</a>
+                              <small class="text-muted" style="padding-left: 20px;"><br>Number of registered {{med.suppliers}}</small>
+                          </div>
+                          <h2><a class="article-title" style="padding-left: 20px; color: #444444; font-size: 24px;" href="#"> {{post.title}} </a></h2>
+                          <p class="article-content" style="padding-left: 20px; white-space: pre-line;">{{med.category_desc}}</p>
+          
+                          <br>
+                      </div>
+                  </article>
+        
+            {% endfor %}
+            
+                    
+                <!-- Add more .industry blocks to fill the grid -->
+                <!-- ... -->
+                </div>
+          
+            <div class="blog-container">
+                <div class="blog-entry">
+                  <a href="#"><h3>Blog Title</h3></a>
+                    <p>Navigating complex trade regulations, finding reliable suppliers or buyers, and establishing trusted relationships pose significant barriers to entry.</p>
+                </div>
+          
+                <div class="blog-entry">
+                  <a href="#"><h3>Blog Title</h3></a>
+                    <p>Navigating complex trade regulations, finding reliable suppliers or buyers, and establishing trusted relationships pose significant barriers to entry.</p>
+                </div>
+          
+                <div class="blog-entry">
+                  <a href="#"><h3>Blog Title</h3></a>
+                    <p>Navigating complex trade regulations, finding reliable suppliers or buyers, and establishing trusted relationships pose significant barriers to entry.</p>
+                </div>
+          
+                  <!-- Repeat the .blog-entry block for each blog post -->
+          
+            </div>
+          
+          
+            
+          </div>
+          </body>
+    
+    </div>
+    
+
+{% endblock content %}

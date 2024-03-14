@@ -1,0 +1,54 @@
+{% extends "market/base.html" %}
+
+{% block title %}
+    <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">Know Your HSN</h1>
+{% endblock title %}
+{% block content %}
+<div class="container mx-auto px-4 py-12">
+    <div style="align-content: center;" >
+        <h1><strong>Search Categories</strong></h1>
+
+        <p>
+            Find using your product's HSN by searching by the name or a part of the name
+        </p>
+
+    </div>
+
+    <div style="margin: 5px; padding: 10px;" >
+        <form method="get" action="{% url 'search_categories' %}">
+            {{ form.as_p }}
+            <button style="padding: 10px; border-color: rgb(0, 0, 0); border-width: 0.5px; width: auto;
+                        border-radius: 20px; background-color: aquamarine;" 
+                type="submit">
+                Search
+            </button>
+        </form>
+    </div>
+        
+
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            {% if categories %}
+            
+                {% for category in categories %}
+                    <div class="product-card rounded overflow-hidden mx-auto" style="padding: 10px; margin:10px" >
+                        <a href="{% url 'category-detail' category.id %}">
+                            <li>{{ category.category_name|slice:":20" }}{% if category.category_name|length > 20 %}...{% endif %}
+                                <br>
+                                (HSN: {{ category.hsn_6_digit }})
+                            </li>
+                        </a>
+                        
+                        
+                    </div>
+                {% endfor %}
+                
+            {% else %}
+                <p>No categories found.</p>
+            {% endif %}
+        </div>
+            
+    
+</div>
+
+{% endblock content %}

@@ -1,0 +1,10 @@
+{% extends "market/base.html" %}  <!-- Update this to the path of your base template -->
+{% block content %}
+<h2>Contact Supplier</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <br>
+    <button type="submit" class="px-5 py-2 bg-teal-600 text-white rounded hover:bg-gray-600 transition-colors">Send Message</button>
+</form>
+{% endblock %}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KREDTRADE.COM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: #aadfe1;
+      color: white;
+      font-family: 'Roboto';
+      
+    }
+  </style>
+</head>
+<body class="flex justify-center items-center h-screen">
+
+    
+
+  <div class="p-8 rounded-lg shadow-md" style="background-color: rgb(194, 229, 243); color: black;">
+
+    <h1 class="text-4xl font-bold text-center mb-2">Are you sure to delete the post titled "{{ object.title }}"? </h1>
+    <p class="text-lg text-center mb-8"></p>
+    <form class="flex flex-col gap-4" method = "POST">
+
+        {% csrf_token %}
+
+      <button
+        type="submit"
+        class="p-2 rounded text-black hover:bg-red-700 transition-colors hover:text-white btn-outline-danger"
+        style="width:fit-content; border-color: red; border-radius: 5px; border-width: 2px;"
+      >Yes, Delete!</button>
+
+      <a href="{% url 'post-detail' object.id %}"
+        class="p-2 rounded hover:bg-white transition-colors text-black "
+        style="width: fit-content; border-radius: 5px; border-color: black; border-width: 2px;"
+      >Cancel</a>
+    </form>
+    
+  </div>
+</body>
+</html>

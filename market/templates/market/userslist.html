@@ -1,0 +1,74 @@
+{% extends "market/base.html" %}
+
+{% block title %}
+    <h1 class="text-4xl font-bold text-center text-gray-800 mb-8"> Companies associated in {{ category.category_name }}</h1>
+{% endblock title %}
+{% block content %}
+
+<div class="container mx-auto px-4 py-10">
+        <h1 class="text-4xl font-bold text-center mb-6">{{ category.category_name }}</h1>
+        
+        <section class="mb-10">
+            
+
+            <h2 class="text-2xl font-semibold mb-4">Companies dealing in {{ category.category_name }}</h2>
+            <div class="flex flex-col bg-teal-200 p-4 rounded-lg" >
+            {% for user in users %}
+                <header class="bg-gray-800 text-white py-5">
+                    <div class="container mx-auto flex justify-between items-center px-4">
+                    <div class="flex items-center space-x-4">
+                        <img class="h-24 w-24 rounded-full border-4 border-gray-200" 
+                        src="{{user.profile.image.url}}" alt="logo" class="rounded-full">
+                        <div>
+                        <h1 class="text-xl font-semibold">{{ user.profile.company }}</h1>
+                        <p class="text-sm">{{ user.profile.state }}</p>
+                        <p class="text-sm">Established: {{ user.profile.est }}</p>
+                        
+                        </div>
+                        <div>
+                            
+                            <p class="text-sm"
+                            style="border-radius: 20px; border-width: 1px; 
+                            background-color: rgb(227, 232, 202); width:fit-content;
+                            padding: 10px; margin: 5px;color: #000;">{{user.profile.description}}</p>
+                            
+                        </div>
+                        
+                    </div>
+                    
+                    </div>
+                </header>
+            <div class="flex space-x-4 mt-4">
+                <a href="{% url 'user-company' user.username %}">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Know More</button>
+                
+                </a>
+                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Contact Supplier</button>
+                
+            </div>
+            <br>
+            {% empty %}
+                <li>Be the first one to list in this category.</li>
+            {% endfor %}
+            
+            <div class="space-y-3">
+                
+                
+                
+                <button class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded mt-4">
+                    <a href="{% url 'new-item' %}">List Your Item</a>
+                </button>
+            </div>
+        </section>
+
+        
+
+         
+        
+    </div>  
+    
+    
+
+
+     
+{% endblock content %}

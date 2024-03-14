@@ -1,0 +1,121 @@
+{% extends "market/base.html" %}
+
+{% block title %}
+    <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">{{ category.category_name }} Details</h1>
+{% endblock title %}
+{% block content %}
+
+<div class="container mx-auto px-4 py-10">
+        <h1 class="text-4xl font-bold text-center mb-6">{{ category.category_name }}</h1>
+        <p class="text-lg mb-4">
+            {{category.category_desc}}
+        </p>
+        <section class="mb-10">
+            
+
+            <h2 class="text-2xl font-semibold mb-4" style="color: black; margin: 10px; padding: 10px;">Top 3 Companies</h2>
+            <div class="flex flex-col bg-teal-200 p-4 rounded-lg" >
+            
+            <header class="bg-gray-100 text-white py-5">
+                {% for user in users %}
+                <p class="text-xl font-semibold" style="color: black; margin: 10px; padding: 10px;">{{ user.profile.company }}</p>
+                <div class="container mx-auto flex justify-between items-center px-4">
+                <div class="flex items-center space-x-4">
+                    <img class="h-36 w-36 rounded-full border-4 border-gray-200" 
+                    src="{{user.profile.image.url}}" alt="logo" class="rounded-full" style="margin:15px">
+                    <div>
+                    
+                    </div>
+                    <div>
+                        
+                        <p class="text-sm"
+                        style="border-radius: 20px; border-width: 1px; 
+                        background-color: rgb(250, 255, 224); width:fit-content;
+                        padding: 10px; margin: 5px;color: #000;"><strong>About the company: </strong>{{user.profile.description}}</p>
+                        
+                    </div>
+                    
+                    
+                    
+                </div>
+                
+                </div>
+                <div class="flex space-x-4 mt-4" style="margin: 10px; padding:10px;">
+                    <a href="{% url 'user-company' user.username %}">
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                            Know More
+                        </button>
+                    </a>
+                    
+                    <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Contact Supplier</button>
+                </div>
+                {% empty %}
+                <p>Be the first one to list in this category.</p>
+            {% endfor %}
+            </header>
+                
+            
+                
+            <div class="space-y-3">
+                
+                
+                <button class="bg-white hover:bg-blue-200 text-black font-bold py-2 px-4 rounded mt-4" style="border-width: 0.5px; border-color: black;">
+                    <a href="{% url 'category-users' category.id %}">Show Full List</a>
+                </button>
+                <button class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded mt-4">
+                    <a href="{% url 'new-item' %}">List Your Item</a>
+                </button>
+            </div>
+        </section>
+        
+
+        <section class="mb-10">
+            <h2 class="text-2xl font-semibold mb-4">Featured Listed Items</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {% for item in items %}
+                <div class="bg-teal-200 p-4 rounded shadow">
+                    <img src="{{item.image.url}}" alt="placeholder" class="rounded mb-3">
+                    <p>{{item.item_name}}: {{item.created_by}}</p>
+                </div>
+            
+            {% empty %}
+                <li>Be the first one to list in this category.</li>
+            {% endfor %}
+            </div>
+            <button class="bg-white hover:bg-blue-200 text-black font-bold py-2 px-4 rounded mt-4" style="border-width: 0.5px; border-color: black;">
+                <a href="{% url 'market-index'%}">Explore Listings</a>
+            </button>
+            <button class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded mt-4">
+                <a href="{% url 'new-item' %}">List Your Item</a>
+            </button>
+            
+        </section>
+
+        <section class="mb-10">
+            <h2 class="text-2xl font-semibold mb-4">Featured Listed Posts</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {% for post in posts %}
+                <div class="bg-teal-200 p-4 rounded shadow">
+                    <img src="{{post.image.url}}" alt="placeholder" class="rounded mb-3">
+                    <p>{{post.title}}: {{post.author}}</p>
+                </div>
+            
+            {% empty %}
+                <li>Be the first one to list in this category.</li>
+            {% endfor %}
+            </div>
+            <button class="bg-white hover:bg-blue-200 text-black font-bold py-2 px-4 rounded mt-4" style="border-width: 0.5px; border-color: black;">
+                <a href="{% url 'market-home' %}">Explore Posts</a>
+            </button>
+            <button class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded mt-4">
+                <a href="{% url 'post-create' %}">Create a Post</a>
+            </button>
+            
+        </section>
+
+         
+        
+    </div>        
+{% endblock content %}

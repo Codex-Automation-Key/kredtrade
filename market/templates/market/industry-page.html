@@ -1,0 +1,43 @@
+{% extends "market/base.html" %}
+
+{% block title %}
+    <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">{{ industry.industry_name }} Details</h1>
+{% endblock title %}
+{% block content %}
+    <div class="container mx-auto p-6">
+    <!-- Title -->
+    <h1 class="text-4xl font-bold text-center mb-8">
+        {{ industry.industry_name }}
+    </h1>
+
+    <!-- Overview -->
+    <div class="overview p-6 mb-8">
+      <h2 class="text-2xl font-semibold mb-4 "> Description</h2>
+      <p class="text-lg mb-4">
+        {{industry.industry_desc}}
+      </p>
+    </div>
+
+    <!-- Category Grid -->
+    
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6" >
+        {% for category in categories %}
+      <!-- Category Card -->
+      <a href="{% url 'category-detail' category.id %}">
+        <div class="category-card rounded-lg p-6 text-center" style="border-width: 2px; border-radius: 5px;">
+          <img src="{{category.category_img.url}}" alt="Category 1" class="mb-4 mx-auto">
+          <h3 class="text-xl font-medium">{{ category.category_name|slice:":20" }}{% if category.category_name|length > 20 %}...{% endif %}</h3>
+          <p> HSN:- {{category.hsn_6_digit}} </p>
+        </div>
+      </a>
+      
+      
+        {% empty %}
+            <p>No categories found for this industry.</p>
+        {% endfor %}
+      
+    </div>
+    
+  </div>
+        
+{% endblock content %}

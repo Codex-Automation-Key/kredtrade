@@ -1,0 +1,17 @@
+{% extends "market/base.html" %}  <!-- Update this to the path of your base template -->
+{% block content %}
+<h2>Show Interest</h2>
+<form method="post">
+    <p>
+        When you show interest to the post, the author might not reach out to you. 
+        For better reach, we recommend that you must contact the supplier. 
+    </p>
+    {% csrf_token %}
+    <!-- The form will be empty as per the model, but we include this to follow standard practices -->
+    <br>
+    <button type="submit" 
+    class="px-5 py-2 bg-teal-600 text-white rounded hover:bg-gray-600 transition-colors">
+        Show Interest
+    </button>
+</form>
+{% endblock %}
