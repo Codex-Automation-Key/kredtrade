@@ -9,4 +9,10 @@ sudo ln -s /etc/nginx/sites-available/kredtrade /etc/nginx/sites-enabled/
 #sudo nginx-t
 
 sudo gpasswd -a www-data ubuntu
-sudo systemctl restart nginx
+sudo nginx -t
+if [ $? -ne 0 ]; then
+    echo "Nginx configuration test failed"
+    exit 1
+else
+    sudo systemctl restart nginx
+fi
