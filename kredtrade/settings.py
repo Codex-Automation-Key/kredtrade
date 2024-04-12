@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-)5kqdl%nre-g)r+ktvahtd0!=1@lhn4=q-2v)t0##bj8%gl@dq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['794d-2405-201-3008-e17d-bd39-f265-4540-5951.ngrok-free.app', '52.66.240.97', 'localhost', '127.0.0.1', 'marketplace.kredtrade.com']
+ALLOWED_HOSTS = ['52.66.240.97', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "whitenoise.runserver_nostatic",
     "market", 
     "users", 
     "crispy_forms",
@@ -56,6 +57,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "kredtrade.urls"
@@ -147,7 +149,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 SESSION_COOKIE_DOMAIN = None
 CSRF_COOKIE_SECURE = False
-CSRF_TRUSTED_ORIGINS = ['https://*.ngrok-free.app', 'http://52.66.240.97', 'https://marketplace.kredtrade.com', 'http://marketplace.kredtrade.com']
+CSRF_TRUSTED_ORIGINS = ['http://13.233.19.252']
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
