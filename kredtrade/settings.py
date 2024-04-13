@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    'django.middleware.http.ConditionalGetMiddleware',
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -59,6 +60,8 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 ROOT_URLCONF = "kredtrade.urls"
 
@@ -148,8 +151,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 SESSION_COOKIE_DOMAIN = None
-CSRF_COOKIE_SECURE = False
-CSRF_TRUSTED_ORIGINS = ['http://13.233.19.252', 'marketplace.kredtrade.com']
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+CSRF_TRUSTED_ORIGINS = ['http://13.233.19.252', 'https://marketplace.kredtrade.com']
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
