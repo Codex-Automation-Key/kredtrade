@@ -14,6 +14,16 @@ class PostForm(forms.ModelForm):
             'target_country': 'Target Country',
             'post_category_hsn': 'HSN Code of Category',
         }
+    def __init__(self, *args, **kwargs):
+        super(PostForm, self).__init__(*args, **kwargs)
+        self.fields['post_category_hsn'].queryset = Category.objects.all()
+        self.fields['post_category_hsn'].label_from_instance = self.label_from_instance
+
+    @staticmethod
+    def label_from_instance(obj):
+        # Return the first 20 characters of the category name along with the HSN code
+        return "%s - %s" % (obj.hsn_6_digit, obj.category_name[:20])
+
     def save(self, commit=True):
         instance = super(PostForm, self).save(commit=False)
         # Set item's industry based on the selected category's industry
@@ -21,9 +31,9 @@ class PostForm(forms.ModelForm):
             instance.post_industry = instance.post_category_hsn.industry
         if commit:
             instance.save()
-            # Save many-to-many data for the form.
             self._save_m2m()
         return instance
+
 
 class CategorySearchForm(forms.Form):
     query = forms.CharField(required=False, 
