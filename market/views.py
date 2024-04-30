@@ -59,8 +59,17 @@ class UserStoreListView(ListView):
     context_object_name = 'items'
 
     def get_queryset(self):
-        user = get_object_or_404(User, username = self.kwargs.get('username'))
-        return Item.objects.filter(created_by = user).order_by('-created_at')
+        # Fetching the user based on the username provided in the URL
+        self.user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Item.objects.filter(created_by=self.user).order_by('-created_at')
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in the company name
+        profile = getattr(self.user, 'profile', None)
+        context['company_name'] = profile.company if profile and profile.company != 'company' else "Company name not set"
+        return context
 
 class UserCompanyDetailView(LoginRequiredMixin, DetailView):
     model = Profile

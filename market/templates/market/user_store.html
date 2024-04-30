@@ -8,7 +8,10 @@
 {% endblock title %}
 {% block content %}
 <a href="{% url 'user-company' view.kwargs.username %}">
-    <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">{{view.kwargs.username}}'s Store</h1>
+    <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">{{company_name}}'s Store</h1>
+    <h2 class="mb-12 text-2xl text-center">
+        Managed by {{view.kwargs.username}}
+    </h2>
 </a>
 
 <div class="flex" >
@@ -20,28 +23,26 @@
         <div class="container mx-auto my-10">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                 {% for item in items %}
-                <div class="product-card rounded overflow-hidden mx-auto" style="padding: 10px; margin:10px">
+                <div class="centered-img-container product-card rounded overflow-hidden mx-auto" >
                     <a href="{% url 'item-detail' item.id %}">
-                        <img class="w-100px" src="{{item.image.url}}" alt="listed-item">
-                        <div class="px-6 py-4">
-                            <div class="font-bold text-xl mb-2">{{item.item_name}}</div>
-                            
+                        <div>
+                            <img src="{{ item.image.url }}" alt="item-image" 
+                            class="flex-none w-40 h-40 rounded-lg" style="border-color: rgb(41, 26, 7); border-width: 2px;">
                         </div>
-                        <div class="px-6 pt-4 pb-2">
-                            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Product Price Per Unit:- {{item.price_per_unit}}</span>
-                            <span class="inline-block bg-blue-200 rounded-full px-3 py-1 text-sm font-semibold text-purple-800 mr-2 mb-2">Product Available on short notice :: {{item.available}}</span>
-                            
+                        <div class="p-6 bh-white rounded-b-xl">
+                            <h2 class="text-2xl">{{ item.item_name }}</h2>
+                            <p class="text-l">HSN:  {{item.item_category.hsn_6_digit}} </p>
+                            <p class="text-l">Listed By:   </p>
+                            <strong>{{item.created_by.profile.company}}</strong>
                         </div>
                     </a>
-                    
-                
                 </div>
                 
                 {% empty %}
                 <p>
-                    The {{view.kwargs.username}} hasn't listed any products yet. 
+                    {{company_name}} hasn't listed any products yet. 
                 </p>
-                {% endfor %}
+                {% endfor %} 
 
             
         </div>
