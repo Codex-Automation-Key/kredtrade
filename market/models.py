@@ -12,11 +12,15 @@ class Sector(models.Model):
         return self.sector_name
 
 class Industry(models.Model):
-    sector = models.ForeignKey(Sector, on_delete=models.CASCADE, related_name='industries',null=True, blank=True)  # Link to Sector
+    sector = models.ForeignKey(Sector, on_delete=models.CASCADE, related_name='industries', null=True, blank=True)
     industry_name = models.CharField(max_length=100)
     industry_desc = models.TextField()
     hsn_2_digit = models.CharField(max_length=2)
     industry_img = models.ImageField(default='kreditem.png', upload_to='industry_pics')
+
+    def leads_count(self):
+        # Assume each industry has related 'posts' and we count these as leads
+        return self.posts.count()
 
     def __str__(self):
         return self.industry_name

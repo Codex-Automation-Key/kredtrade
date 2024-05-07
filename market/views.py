@@ -13,7 +13,7 @@ from item.models import Item
 from users.models import Profile, RegistrationCertificate
 from .forms import PostForm, CategorySearchForm
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.db.models import Q, Count
 from django import template
 
 
@@ -133,9 +133,21 @@ def about(request):
     
     return render(request, 'market/about.html')
 
+
 def industries(request):
+    query = request.GET.get('search', '')  # Retrieves the search term from GET request
+    industries = Industry.objects.annotate(leads_count=Count('posts'))
+
+    if query:
+        industries = industries.filter(
+            Q(industry_name__icontains=query) |
+            Q(industry_desc__icontains=query) |
+            Q(hsn_2_digit__icontains=query)
+        ).order_by('-leads_count')
+
     context = {
-        'industries':Industry.objects.all()
+        'industries': industries,
+        'search_query': query  # Optional: pass the current search query to the template
     }
     return render(request, 'market/industries.html', context)
 

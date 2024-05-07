@@ -96,29 +96,41 @@
           
           <body>
           <div class="wrapper" >
-          
+            <form method="get" action="{% url 'market-industries' %}">
+              <input type="text" name="search" value="{{ search_query }}" placeholder="Search industries..." class="p-2 border rounded">
+              <button type="submit" class="p-2 bg-blue-500 text-white rounded">Search</button>
+            </form>
+
+            <div>
+              <br>
+            </div>
           
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5" style="width: 100%;">
+                  
                 <!-- Repeat this block for each industry category -->
                 <!-- Each .industry block represents one item in the grid -->
-                {% for industry in industries %}
-                <div class="centered-img-container product-card rounded overflow-hidden mx-auto" >
-                  <a href="{% url 'industry-detail' industry.id %}">
-                      <div>
-                          <img src="{{ industry.industry_img.url }}" alt="industry-image" 
-                          class="flex-none w-40 h-40 rounded-lg" style="border-color: rgb(41, 26, 7); border-width: 2px;">
-                      </div>
-                  
-                      <div class="p-6 bh-white rounded-b-xl">
-                          <h2 class="text-2xl">{{ industry.industry_name }}</h2>
-                          <p class="text-l">HSN:  {{industry.hsn_2_digit}} </p>
-                          <p class="text-1" >Number of Categories: {{industry.categories.count}}  </p>
-                      </div>
-                    </a>
-                </div>
-                  
-        
-                {% endfor %}
+                
+                  {% if industries %}
+                      {% for industry in industries %}
+                        <div class="centered-img-container product-card rounded overflow-hidden mx-auto">
+                          <a href="{% url 'industry-detail' industry.id %}">
+                            <div>
+                              <img src="{{ industry.industry_img.url }}" alt="industry-image" class="flex-none w-40 h-40 rounded-lg" style="border-color: rgb(41, 26, 7); border-width: 2px;">
+                            </div>
+
+                            <div class="p-6 bh-white rounded-b-xl">
+                              <h2 class="text-2xl">{{ industry.industry_name|slice:":35" }}{% if industry.industry_name|length > 35 %}...{% endif %}</h2>
+                              <p class="text-l">HSN: {{ industry.hsn_2_digit }}</p>
+                              <p class="text-1">Number of Categories: {{ industry.categories.count }}</p>
+                              <p class="text-1">Number of Leads: {{ industry.leads_count }}</p> <!-- Display the count of leads -->
+                            </div>
+                          </a>
+                        </div>
+                      {% endfor %}
+                      {% else %}
+                      <p>No industries found matching your search criteria.</p>
+                  {% endif %}
+              
             
                     
                 <!-- Add more .industry blocks to fill the grid -->
