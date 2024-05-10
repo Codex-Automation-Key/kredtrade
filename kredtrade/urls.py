@@ -54,6 +54,9 @@ urlpatterns = [
     
     path('show_interest/<int:post_id>/', interactions_views.show_interest, name='show_interest'),
     path('contact_supplier/<int:post_id>/', interactions_views.contact_supplier, name='contact_supplier'),
+
+    path('contact/', interactions_views.contact, name='contact'),
+    path('contact_success/', interactions_views.contact_success, name='contact_success'),
     
     #path('item/list/', ItemCreateView.as_view(), name = 'item-create')
 ] 
