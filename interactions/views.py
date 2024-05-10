@@ -2,7 +2,7 @@ from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
-from .forms import ShowInterestForm, ContactSupplierForm
+from .forms import ShowInterestForm, ContactSupplierForm, ContactForm
 from .models import UserInterest
 from market.models import Post
 from users.models import Profile
