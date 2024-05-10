@@ -61,3 +61,43 @@ def contact_supplier(request, post_id):
     else:
         form = ContactSupplierForm()
     return render(request, 'interactions/contact_supplier.html', {'form': form, 'post': post})
+
+
+
+def contact_success(request):
+    return render(request, 'interactions/contact_success.html')
+
+
+
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            # Extract data from the form
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+
+            # Render the email content from the template
+            email_content = render_to_string('interactions/contact_email.html', {
+                'name': name,
+                'email': email,
+                'subject': subject,
+                'message': message
+            })
+
+            # Send email
+            send_mail(
+                subject,
+                email_content,
+                'himanshusanjaykhale@gmail.com',  # From email
+                ['codexautomationkey@gmail.com'],  # To email
+                fail_silently=False,
+                html_message=email_content  # For HTML emails
+            )
+
+            return redirect('contact_success')
+    else:
+        form = ContactForm()
+    return render(request, 'interactions/contact.html', {'form': form})

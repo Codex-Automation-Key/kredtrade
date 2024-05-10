@@ -1,5 +1,7 @@
 from django import forms
-from .models import UserInterest, SupplierMessage
+from .models import UserInterest, SupplierMessage, ContactMessage
+
+
 
 INPUT_CLASSES = 'mt-6 w-auto py-3 px-3 rounded-xl border '
 
@@ -27,6 +29,35 @@ class ContactSupplierForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={
             'class': INPUT_CLASSES
             }),
+            'message': forms.TextInput(attrs={
+            'class': INPUT_CLASSES
+            }),
+        }
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = ContactMessage
+        fields = ['name', 'email', 'subject', 'message']
+
+        labels = {
+            'name': 'Name',
+            'email': 'Your email id',
+            'subject': 'Write your subject',
+            'message': 'Your message',
+        }
+
+        widgets = {
+            'name': forms.TextInput(attrs={
+            'class': INPUT_CLASSES
+            }),
+            'email': forms.EmailInput(attrs={
+            'class': INPUT_CLASSES
+            }),
+            
+            'subject': forms.TextInput(attrs={
+            'class': INPUT_CLASSES
+            }),
+
             'message': forms.TextInput(attrs={
             'class': INPUT_CLASSES
             }),
