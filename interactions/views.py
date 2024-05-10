@@ -6,6 +6,7 @@ from .forms import ShowInterestForm, ContactSupplierForm, ContactForm
 from .models import UserInterest
 from market.models import Post
 from users.models import Profile
+from django.template.loader import render_to_string
 
 @login_required
 def show_interest(request, post_id):
