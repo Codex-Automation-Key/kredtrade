@@ -57,6 +57,13 @@ urlpatterns = [
 
     path('contact/', interactions_views.contact, name='contact'),
     path('contact_success/', interactions_views.contact_success, name='contact_success'),
+    path('accounts/', include('django.contrib.auth.urls')),  # Include default auth URLs
+    path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+
+
     
     #path('item/list/', ItemCreateView.as_view(), name = 'item-create')
 ] 

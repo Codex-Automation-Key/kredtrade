@@ -162,3 +162,4 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'himanshusanjaykhale@gmail.com'
 EMAIL_HOST_PASSWORD = 'rdpzegitdbmyhhac'
+DEFAULT_FROM_EMAIL = 'himanshusanjaykhale@gmail.com'
