@@ -92,7 +92,7 @@ def contact(request):
             send_mail(
                 subject,
                 email_content,
-                'himanshusanjaykhale@gmail.com',  # From email
+                'noreply.kredtrade@gmail.com',  # From email
                 ['codexautomationkey@gmail.com'],  # To email
                 fail_silently=False,
                 html_message=email_content  # For HTML emails
