@@ -68,7 +68,7 @@ ROOT_URLCONF = "kredtrade.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "users/templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -144,6 +144,8 @@ LOGIN_REDIRECT_URL = 'market-home'
 LOGOUT_REDIRECT_URL = 'market-home'
 
 LOGIN_URL = 'login'
+LOGIN_TEMPLATE = 'users/login.html'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 

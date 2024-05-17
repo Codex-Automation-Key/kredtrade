@@ -105,25 +105,39 @@
         <!-- Links will be dynamically highlighted based on the current page -->
         <div id="navbar" class="hidden w-full block flex-grow lg:flex lg:items-center lg:w-auto lg:justify-end" style="align-items:center; margin-left:20% ;">
             <div class="text-lg lg:flex-grow" >
-                <a href="{% url 'market-home' %}" class="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-black mr-4">
-                    Explore
+                <a href="https://www.kredtrade.com" class="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-black mr-4">
+                    Home
+                </a>
+                <a href="https://kredtrade.com/about-us/" class="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-black mr-4">
+                    About Us
                 </a>
 
-                <a href="{% url 'post-create' %}" class="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-black mr-4">
-                    New Post
+                <a href="{% url 'market-home' %}" class="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-black mr-4">
+                    Marketplace
                 </a>
-                
+
                 <a href="{% url 'market-industries' %}" class="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-black mr-4">
                     Industries
                 </a>
+
+                <a href="https://kredtrade.com/services" class="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-black mr-4">
+                    Our Services
+                </a>
                 
-                <a href="{% url 'new-item' %}" class="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-black mr-4">
-                    New Item
-                </a>
-                {% if user.is_authenticated %}
+                
                 <a href="{% url 'market-index' %}" class="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-black mr-4">
-                    Index
+                    Listed Products
                 </a>
+                
+                <a href="https://www.kredtrade.com/blogs" class="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-black mr-4">
+                    Blogs
+                </a>
+                <a href="{% url 'contact' %}" class="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-black mr-4">
+                    Contact Us
+                </a>
+
+                {% if user.is_authenticated %}
+                
                 
                 <a href="{% url 'profile' user.id %}" 
                 class="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-black mr-4"

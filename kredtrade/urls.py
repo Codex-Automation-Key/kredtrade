@@ -23,6 +23,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from item import views as item_views
 from interactions import views as interactions_views
+from django.contrib.auth.views import LoginView
 
 #from item.views import ItemCreateView
 
@@ -35,8 +36,8 @@ urlpatterns = [
     path('item/', include('item.urls')),
     path('register/', user_views.register, name = 'register'),
     path('profile/<int:pk>/', user_views.profile, name = 'profile' ),
-    path('login/',auth_views.LoginView.as_view(template_name = 'users/login.html'), name='login'),
-    path('logout/', user_views.user_logout, name='logout'),
+    path('accounts/login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
+    path('accounts/logout/', user_views.user_logout, name='logout'),
     path('item/<int:pk>/', item_views.detail, name = 'item-detail'),
     path('profileupdate/<int:pk>/', user_views.profileupdate, name='profile-update'),
     path('profileupdate-certificates/<int:pk>', user_views.certificateupdate, name = 'certificate-update'),
@@ -58,13 +59,23 @@ urlpatterns = [
     path('contact/', interactions_views.contact, name='contact'),
     path('contact_success/', interactions_views.contact_success, name='contact_success'),
     path('accounts/', include('django.contrib.auth.urls')),  # Include default auth URLs
-    path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
-    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
-    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
-
-
-    
+   
+    path('password_reset/', auth_views.PasswordResetView.as_view(
+        template_name='users/password_reset.html',
+        email_template_name='users/password_reset_email.html',
+        subject_template_name='users/password_reset_subject.txt',
+        success_url='/password_reset/done/'
+    ), name='password_reset'),
+    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(
+        template_name='users/password_reset_done.html'
+    ), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(
+        template_name='users/password_reset_confirm.html',
+        success_url='/reset/done/'
+    ), name='password_reset_confirm'),
+    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(
+        template_name='users/password_reset_complete.html'
+    ), name='password_reset_complete'),
     #path('item/list/', ItemCreateView.as_view(), name = 'item-create')
 ] 
 

@@ -2,20 +2,75 @@
 
 {% block content %}
 <h1>Contact Us</h1>
-<div>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Send</button>
-    </form>
 
-</div>
-<div style="margin: 5px; padding: 5px;">
-    <div>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14721.99517846273!2d75.8770644!3d22.7096947!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962fdad94b029db%3A0x3ebd8032d6c5f6f6!2sKredpartner!5e0!3m2!1sen!2sus!4v1680608396354!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    
+
+
+<div class="container mx-auto p-6">
+    <div class="md:flex md:-mx-2">
+        <div class="md:flex-1 px-2 mb-4 md:mb-0">
+            
+            <div style="margin: 5px; padding: 5px;">
+                <div>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14721.99517846273!2d75.8770644!3d22.7096947!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962fdad94b029db%3A0x3ebd8032d6c5f6f6!2sKredpartner!5e0!3m2!1sen!2sus!4v1680608396354!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                
+                </div>
+                
+            </div>
+            <div class="mt-4 md:grid md:grid-cols-3 md:gap-4 text-center">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-lg font-semibold text-green-600">Head Office</h3>
+                    <div class="text-gray-700 mt-2">
+                        <p>Empire House</p>
+                        <p>101, Empire House, Near Bright School,</p>
+                        <p>jarora compound, Indore (M.P) - 452001</p>
+                    </div>
+                </div>
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-lg font-semibold text-green-600">Make a Call</h3>
+                    <div class="text-gray-700 mt-2">
+                        <p>+91 6264 888 232</p>
+                        <p>Mon - Sat: 09am - 08pm</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-green-600">Send a Mail</h3>
+                    <div class="text-gray-700 mt-2">
+                        <p>Email</p>
+                        <p>info.kredtrade@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="md:flex-1 px-2">
+            <h2 class="text-xl font-semibold text-green-600 mb-6">Get In Touch</h2>
+            <h3 class="font-semibold text-gray-700 mb-1">Any Question? Write Down And Send Us</h3>
+            <div>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Send</button>
+                </form>
+            
+            </div>
+        </div>
     </div>
-    
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 {% endblock %}
