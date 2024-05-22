@@ -93,7 +93,7 @@ def contact(request):
                 subject,
                 email_content,
                 'noreply.kredtrade@gmail.com',  # From email
-                ['codexautomationkey@gmail.com'],  # To email
+                ['info.kredtrade@gmail.com'],  # To email
                 fail_silently=False,
                 html_message=email_content  # For HTML emails
             )
